@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Notice;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
@@ -25,6 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {  // Set up mpdf as PDF renderer
-       View::share('notices', Notice::all());
+    View::share('notices', Schema::hasTable('notices') ? Notice::all() : collect());
     }
 }
